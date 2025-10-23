@@ -1,0 +1,9 @@
+accelerate
+transformers
+llama-cpp-python
+mistral-common
+peft
+tqdm
+autogen
+"autogen-ext[llama-cpp]"
+-r ./llama_cpp/requirements.txt
