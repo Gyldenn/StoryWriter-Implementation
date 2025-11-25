@@ -2,7 +2,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
 model_name = "ibm-granite/granite-3.0-1b-a400m-base"
-local_path = "./modelo_local"
+local_path = "./modelo_local/HF_original"
 
 
 device = "cuda" if torch.cuda.is_available() else "cpu"

@@ -7,8 +7,6 @@ from autogen_core.models import UserMessage
 PROMPT = "What's the capital of France?"
 
 
-
-
 def limpiar_output_simple(model_output: str) -> str:
     """
     Extrae y limpia solo la primera respuesta significativa del output de AutoGen/LlamaClient.

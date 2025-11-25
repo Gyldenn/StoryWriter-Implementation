@@ -5,5 +5,10 @@ mistral-common
 peft
 tqdm
 autogen
-"autogen-ext[llama-cpp]"
--r ./llama_cpp/requirements.txt
+# eliminé las comillas
+autogen-ext[llama-cpp]
+# Comenté esto que no sé para qué es
+#-r ./llama_cpp/requirements.txt
+# NUEVOS:
+sentencepiece
+torch
