@@ -1,5 +1,6 @@
 from .base_agent import BaseAgent
 import json
+from base_agent import extract_json
 
 INITIAL_EVENT_PROMPT = """
 You are an Event Generator.
@@ -38,7 +39,14 @@ Feedback:
 Rewrite the event so that it addresses the feedback while staying consistent with all previously approved events:
 {other_events}
 
-Return ONLY a JSON object with the same fields as before.
+Return ONLY a JSON object with the fields:
+{{
+  "title": "...",
+  "description": "...",
+  "characters": [...],
+  "location": "...",
+  "conflict": "..."
+}}
 """
 
 class EventSeed(BaseAgent):
@@ -49,12 +57,18 @@ class EventSeed(BaseAgent):
       index=index,
       previous_events=json.dumps(previous_events, indent=2)
     )
+    
+    # Llamada al LLM
     raw = self.call_llm(prompt)
 
-    try:
-      return json.loads(raw)
-    except:
-      return {"title": "Invalid JSON Event", "raw": raw}
+    # Intento de parseo robusto
+    parsed = extract_json(raw)
+    
+    if parsed:
+        return parsed
+    else:
+        # Retornamos el error pero con el raw para debuggear
+        return {"title": "Invalid JSON Event", "raw": raw}
 
   def revise_event(self, event, feedback, other_events):
     prompt = REVISION_PROMPT.format(
@@ -64,10 +78,11 @@ class EventSeed(BaseAgent):
     )
     raw = self.call_llm(prompt)
 
-    try:
-      return json.loads(raw)
-    except:
-      return event  # fallback
-
+    parsed = extract_json(raw)
+    if parsed:
+        return parsed
+    else:
+        return event  # fallback si falla la revisión
+    
   def run(self, *args, **kwargs):
     raise NotImplementedError
