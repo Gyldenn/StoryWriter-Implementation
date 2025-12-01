@@ -1,6 +1,6 @@
 from .base_agent import BaseAgent
 import json
-from base_agent import extract_json
+from agents.base_agent import extract_json
 
 INITIAL_EVENT_PROMPT = """
 You are an Event Generator.
