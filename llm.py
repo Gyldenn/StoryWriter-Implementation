@@ -26,6 +26,7 @@ class LLMClient:
         # verbose=False para que no moleste en la consola
         self.model = Llama(
             model_path=model_path, 
+            n_gpu_layers=999,
             n_ctx=n_ctx, 
             verbose=False, 
             **kwargs
