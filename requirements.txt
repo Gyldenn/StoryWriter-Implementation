@@ -1,5 +1,5 @@
 accelerate
-pip install llama-cpp-python
+llama-cpp-python
 mistral-common
 peft
 tqdm
