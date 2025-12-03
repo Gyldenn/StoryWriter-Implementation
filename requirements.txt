@@ -1,5 +1,5 @@
 accelerate
-llama-cpp-python
+!CMAKE_ARGS="-DLLAMA_CUBLAS=on" pip install llama-cpp-python
 mistral-common
 peft
 tqdm
